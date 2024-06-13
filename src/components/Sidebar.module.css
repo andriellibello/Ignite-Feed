@@ -66,5 +66,5 @@ margin-top: calc(0px - 1.5rem - 6px);
 
 .sidebar footer a:hover {
   background: var(--green-500);
-  color: var(--white)
+  color: var(--white);
 }
