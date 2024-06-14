@@ -1,30 +1,58 @@
+import { format, formatDistanceToNow } from "date-fns";
+import ptBr from "date-fns/locale/pt-BR";
+
 import { Avatar } from "./Avatar";
 import { Comment } from "./Comment";
 import styles from "./Post.module.css";
 
-
 //author
-export function Post() {
+export function Post({ author, publishedAt, content }) {
+  const pusblishedDateFormatted = format(
+    publishedAt,
+    "d 'de' LLLL 'às' HH:mm'h'",
+    {
+      locale: ptBr,
+    }
+  );
+
+  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+    locale: ptBr,
+    addSuffix: true,
+  });
+
   return (
     <article className={styles.post}>
       <header>
         <div className={styles.author}>
-          <Avatar
-            src="https://avatars.githubusercontent.com/u/162721865?v=4"
-          />
+          <Avatar src={author.avatarUrl} />
           <div className={styles.authorInfo}>
-            <strong>Andrielli Bello</strong>
-            <span>Developer</span>
+            <strong>{author.name}</strong>
+            <span>{author.role}</span>
           </div>
         </div>
 
-        <time title="12 de Junho às 15:00h" dateTime="2024-06-12">
-          Publicado há 1h
+        <time
+          title={pusblishedDateFormatted}
+          dateTime={publishedAt.toISOString()}
+        >
+          {publishedDateRelativeToNow}
         </time>
       </header>
 
       <div className={styles.content}>
-        
+        {content.map((line) => {
+          if (line.type === "paragraph") {
+            return <p key={line.id}>{line.content}</p>;
+          } else if (line.type === "link") {
+            return (
+              <p key={line.id}>
+                <a href="#">{line.content}</a>
+              </p>
+            );
+          } else {
+            return null;
+          }
+        })}
       </div>
 
       <form className={styles.commentForm}>
@@ -37,10 +65,9 @@ export function Post() {
       </form>
 
       <div className={styles.commentList}>
-        <Comment/>
-        <Comment/>
-        <Comment/>
-        
+        <Comment />
+        <Comment />
+        <Comment />
       </div>
     </article>
   );

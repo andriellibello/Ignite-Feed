@@ -15,11 +15,25 @@ const posts = [
       role: 'Dev'
     },
     content: [
-      {type: 'paragrap', content: 'Fala galeraa 👋', },
-      {type: 'paragrap', content:'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀{" "}'},
+      {type: 'paragraph', content: 'Fala galeraa 👋', },
+      {type: 'paragraph', content:'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀{" "}'},
       {type: 'link', content: 'jane.design/doctorcare'},
     ],
-    publishedAt: new Date('2002-13-06 17:00:00'),
+    publishedAt: new Date('2024-06-13 17:00:00'),
+  },
+  {
+    id: 2,
+    author: {
+      avatarUrl:"https://github.com/maykbrito.png",
+      name: 'Mayk Brito',
+      role: 'Educator'
+    },
+    content: [
+      {type: 'paragraph', content: 'Fala galeraa 👋', },
+      {type: 'paragraph', content:'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀{" "}'},
+      {type: 'link', content: 'jane.design/doctorcare'},
+    ],
+    publishedAt: new Date('2024-06-15 17:00:00'),
   }
 ]
 export function App() {
@@ -29,14 +43,16 @@ export function App() {
       <div className={styles.wrapper}>
         <Sidebar />
         <main>
-          <Post
-            author="Diego Fernandes"
-            content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel dolor laudantium et. Beatae porro natus maiores reprehenderit? Sed nulla laboriosam voluptas quisquam necessitatibus illo. Quas asperiores repudiandae quam. Fugit, maxime?"
-          />
-          <Post
-            author="Gabriel"
-            content="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel dolor laudantium et. Beatae porro natus maiores reprehenderit? Sed nulla laboriosam voluptas quisquam necessitatibus illo. Quas asperiores repudiandae quam. Fugit, maxime?"
-          />
+          {posts.map(post => {
+            return (
+              <Post 
+                key={post.id} // Adicionando a `key` única
+                author={post.author}
+                content={post.content}
+                publishedAt={post.publishedAt}
+              />
+            )
+          })}
         </main>
       </div>
     </div>
